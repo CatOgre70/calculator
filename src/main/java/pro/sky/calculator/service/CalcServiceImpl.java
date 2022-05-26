@@ -5,87 +5,83 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalcServiceImpl implements CalcService{
 
+    private final String error1 = " = Вы точно хотите провести эту операцию " +
+                            "с двумя этими странными штуками? А это вообще законно?";
+    private boolean parseError = false;
+
+    private int parseString(String s){
+        parseError = false;
+        try{
+            return Integer.parseInt(s);
+        }catch(NumberFormatException e){
+            parseError = true;
+            return 0;
+        }
+    }
+
     @Override
     public String getPlus(String num1, String num2){
-        int x, y;
-        try{
-            x = Integer.parseInt(num1);
-        }catch(NumberFormatException e){
-            return num1 + " + " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int x = parseString(num1);
+        if(parseError) {
+            parseError = false;
+            return num1 + " + " + num2 + error1;
         }
-        try{
-            y = Integer.parseInt(num2);
-        } catch(NumberFormatException e){
-            return num1 + " + " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int y = parseString(num2);
+        if(parseError) {
+            parseError = false;
+            return num1 + " + " + num2 + error1;
         }
-        String s = x + " + " + y + " = " + (x + y);
-        return s;
+        return x + " + " + y + " = " + (x + y);
     }
 
     @Override
     public String getMinus(String num1, String num2){
-        int x, y;
-        try{
-            x = Integer.parseInt(num1);
-        }catch(NumberFormatException e){
-            return num1 + " - " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int x = parseString(num1);
+        if(parseError) {
+            parseError = false;
+            return num1 + " - " + num2 + error1;
         }
-        try{
-            y = Integer.parseInt(num2);
-        } catch(NumberFormatException e){
-            return num1 + " - " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int y = parseString(num2);
+        if(parseError) {
+            parseError = false;
+            return num1 + " - " + num2 + error1;
         }
-        String s = x + " - " + y + " = " + (x - y);
-        return s;
+        return x + " - " + y + " = " + (x - y);
     }
 
     @Override
     public String getMultiply(String num1, String num2){
-        int x, y;
-        try{
-            x = Integer.parseInt(num1);
-        }catch(NumberFormatException e){
-            return num1 + " * " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int x = parseString(num1);
+        if(parseError) {
+            parseError = false;
+            return num1 + " * " + num2 + error1;
         }
-        try{
-            y = Integer.parseInt(num2);
-        } catch(NumberFormatException e){
-            return num1 + " * " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int y = parseString(num2);
+        if(parseError) {
+            parseError = false;
+            return num1 + " * " + num2 + error1;
         }
-        String s = x + " * " + y + " = " + (x * y);
-        return s;
+        return x + " * " + y + " = " + (x * y);
     }
 
     @Override
     public String getDivide(String num1, String num2){
-        int x, y;
-        try{
-            x = Integer.parseInt(num1);
-        }catch(NumberFormatException e){
-            return num1 + " / " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int x = parseString(num1);
+        if(parseError) {
+            parseError = false;
+            return num1 + " / " + num2 + error1;
         }
-        try{
-            y = Integer.parseInt(num2);
-        } catch(NumberFormatException e){
-            return num1 + " / " + num2 + " = Вы точно хотите провести эту операцию " +
-                    "с двумя этими странными штуками? А это вообще законно?";
+        int y = parseString(num2);
+        if(parseError) {
+            parseError = false;
+            return num1 + " / " + num2 + error1;
         }
 
         if(y == 0)
             return num1 + " / " + num2 + " = Ой! Я поделила на ноль и улетаю в другую Вселенную! " +
-                    "Прощай, недоразвитое человечество!";
+                                         "Прощай, человечество!";
 
-        String s = x + " / " + y + " = " + ((double)x / y);
-        return s;
+        return x + " / " + y + " = " + ((double)x / y);
     }
-
-
 
 }
