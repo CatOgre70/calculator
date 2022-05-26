@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalcServiceImpl implements CalcService{
 
-    private String error1 = " = Вы точно хотите провести эту операцию " +
+    private final String error1 = " = Вы точно хотите провести эту операцию " +
                             "с двумя этими странными штуками? А это вообще законно?";
-    private String error2 = " = Ой! Я поделила на ноль и улетаю в другую Вселенную! " +
-                            "Прощай, человечество!";
     private boolean parseError = false;
 
     private int parseString(String s){
@@ -33,8 +31,7 @@ public class CalcServiceImpl implements CalcService{
             parseError = false;
             return num1 + " + " + num2 + error1;
         }
-        String s = x + " + " + y + " = " + (x + y);
-        return s;
+        return x + " + " + y + " = " + (x + y);
     }
 
     @Override
@@ -49,8 +46,7 @@ public class CalcServiceImpl implements CalcService{
             parseError = false;
             return num1 + " - " + num2 + error1;
         }
-        String s = x + " - " + y + " = " + (x - y);
-        return s;
+        return x + " - " + y + " = " + (x - y);
     }
 
     @Override
@@ -65,8 +61,7 @@ public class CalcServiceImpl implements CalcService{
             parseError = false;
             return num1 + " * " + num2 + error1;
         }
-        String s = x + " * " + y + " = " + (x * y);
-        return s;
+        return x + " * " + y + " = " + (x * y);
     }
 
     @Override
@@ -83,10 +78,10 @@ public class CalcServiceImpl implements CalcService{
         }
 
         if(y == 0)
-            return num1 + " / " + num2 + error2;
+            return num1 + " / " + num2 + " = Ой! Я поделила на ноль и улетаю в другую Вселенную! " +
+                                         "Прощай, человечество!";
 
-        String s = x + " / " + y + " = " + ((double)x / y);
-        return s;
+        return x + " / " + y + " = " + ((double)x / y);
     }
 
 }
